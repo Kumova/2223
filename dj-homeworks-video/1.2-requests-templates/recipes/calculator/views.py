@@ -4,7 +4,7 @@ from django.conf import settings
 
 DATA = {
     'omlet': {
-        'яйца, шт': 2,
+        'яйца,шт': 2,
         'молоко, л': 0.1,
         'соль, ч.л.': 0.5,
     },
@@ -35,12 +35,18 @@ DATA = {
 #     'ингредиент2': количество2,
 #   }
 # }
-def recipes(request):
-    recipe_name = 'index.html'
+def recipes(request,recipe):
+    response=DATA.get(recipe)
+    if response:
+        return HttpResponse(response)
+    else:
+        return HttpResponse(f'Такого рецепта не знаю')
     context = {
-        'recipe': DATA
+        'recipe': {
+            'ingredient1': amount1,
+            'ingredient2': amount2,
+        }
     }
-
     return render(request, 'calculator/index.html', context)
 
 #def calculator(request, количество1, количество2):

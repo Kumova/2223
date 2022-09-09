@@ -14,16 +14,19 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, include
 from calculator.views import recipes
 
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('recipe/', recipes),
+    path('<recipe>', recipes),
+]
+#    path('admin/', admin.site.urls),
+ #   path('recipe/', recipes),
 #    path('/calculator/index/<количество1>/<количество2>/', calculator, name='index')
 #    path('current_time/', time_view, name='time'),
  #   path('workdir/', workdir_view, name='workdir'),
  #   path('admin/', admin.site.urls),
     # здесь зарегистрируйте вашу view-функцию
-]
+#]
+
