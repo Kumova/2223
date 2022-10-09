@@ -26,29 +26,24 @@ DATA = {
     }
 }
 
-# Напишите ваш обработчик. Используйте DATA как источник данных
-# Результат - render(request, 'calculator/index.html', context)
-# В качестве контекста должен быть передан словарь с рецептом:
- #   context = {
-#        'recipe': {
-#     'ингредиент1': количество1,
-#     'ингредиент2': количество2,
-#   }
-# }
+
 def recipes(request,recipe):
-    response=DATA.get(recipe)
-    if response:
-        return HttpResponse(response)
+    recipe=DATA.get(recipe)
+    if recipe:
+        return HttpResponse(recipe)
     else:
         return HttpResponse(f'Такого рецепта не знаю')
     context = {
         'recipe': {
-            'ingredient1': amount1,
-            'ingredient2': amount2,
+            'ingredient': amount,
+            'ingredient': amount,
         }
     }
+    servings = int(request.GET.get("servings", 1)
     return render(request, 'calculator/index.html', context)
 
-#def calculator(request, количество1, количество2):
-#    calculator_name='calculator/index.html'
- #   render(request, 'calculator/index.html', context)
+
+
+
+
+

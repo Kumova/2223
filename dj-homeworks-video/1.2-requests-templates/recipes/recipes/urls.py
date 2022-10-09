@@ -19,7 +19,7 @@ from calculator.views import recipes
 
 
 urlpatterns = [
-    path('<recipe>', recipes),
+    path('<recipe>/', recipes),
 ]
 #    path('admin/', admin.site.urls),
  #   path('recipe/', recipes),
