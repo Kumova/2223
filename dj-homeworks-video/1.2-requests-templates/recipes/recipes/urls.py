@@ -19,9 +19,11 @@ from calculator.views import recipes
 
 
 urlpatterns = [
+    path('admin/', admin.site.urls),
     path('<recipe>/', recipes),
+
 ]
-#    path('admin/', admin.site.urls),
+#    ,
  #   path('recipe/', recipes),
 #    path('/calculator/index/<количество1>/<количество2>/', calculator, name='index')
 #    path('current_time/', time_view, name='time'),

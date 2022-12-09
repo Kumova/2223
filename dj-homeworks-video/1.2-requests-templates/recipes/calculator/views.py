@@ -27,23 +27,20 @@ DATA = {
 }
 
 
-def recipes(request,recipe):
+def recipes(request, recipe):
     recipe=DATA.get(recipe)
     if recipe:
         return HttpResponse(recipe)
     else:
-        return HttpResponse(f'Такого рецепта не знаю')
+       return HttpResponse(f'Такого рецепта не знаю')
+ #   servings = int(request.GET.get("servings", 1)
     context = {
         'recipe': {
-            'ingredient': amount,
-            'ingredient': amount,
+            'ингредиент1': количество1,
+            'ингредиент2': количество2,
         }
     }
-    servings = int(request.GET.get("servings", 1)
     return render(request, 'calculator/index.html', context)
-
-
-
 
 
 
