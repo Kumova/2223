@@ -28,16 +28,16 @@ DATA = {
 
 
 def recipes(request, recipe):
-    recipe=DATA.get(recipe)
+    recipe=request.GET.get("recipe")
+    servings = int(request.GET.get("servings", '')
     if recipe:
-        return HttpResponse(recipe)
-    else:
-       return HttpResponse(f'Такого рецепта не знаю')
- #   servings = int(request.GET.get("servings", 1)
+       recipe=amount*servings
+    return HttpResponse(recipe)
+ #   else:
+ #      return HttpResponse(f'Такого рецепта не знаю')
     context = {
         'recipe': {
-            'ингредиент1': количество1,
-            'ингредиент2': количество2,
+            'ingredient': amount,
         }
     }
     return render(request, 'calculator/index.html', context)
