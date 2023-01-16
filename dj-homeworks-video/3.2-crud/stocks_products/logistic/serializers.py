@@ -1,6 +1,6 @@
 
 from rest_framework import serializers
-from stocks_products.logistic.models import StockProduct
+from logistic.models import StockProduct
 
 
 class ProductSerializer(serializers.ModelSerializer):
@@ -10,35 +10,25 @@ class ProductSerializer(serializers.ModelSerializer):
 
 class ProductPositionSerializer(serializers.ModelSerializer):
     positions=serializers.CharField()
-    price=serializers.DecimalField()
+    price=serializers.DecimalField(max_digits=18, decimal_places=2)
     quantity=serializers.IntegerField()
-
-
 
 
 class StockSerializer(serializers.ModelSerializer):
     positions = ProductPositionSerializer(many=True)
-    # настройте сериализатор для склада
 
     def create(self, validated_data):
-        # достаем связанные данные для других таблиц
         positions = validated_data.pop('positions')
-        serializer = StockSerializer(data=positions)
-        serializer.is_valid(raise_exception=True)
-        # создаем склад по его параметрам
         stock = super().create(validated_data)
-        StockProduct.objects.create(data=positions, **positions)
+        for position in positions:
+            StockProduct.objects.create(data=positions, **positions)
         return stock
 
     def update(self, instance, validated_data):
-        # достаем связанные данные для других таблиц
         positions = validated_data.pop('positions')
-
-        # обновляем склад по его параметрам
         stock = super().update(instance, validated_data)
-
-        # здесь вам надо обновить связанные таблицы
-        # в нашем случае: таблицу StockProduct
-        # с помощью списка positions
-        created = StockProduct.objects.update_or_create(positions='positions', defaults=True)
+        positions = validated_data.pop('positions')
+        for position in positions:
+            StockProduct.objects.update_or_create(stock='address', product='positions',
+                                                  defaults={'price': 'price', 'quantity': 'quantity'})
         return stock
