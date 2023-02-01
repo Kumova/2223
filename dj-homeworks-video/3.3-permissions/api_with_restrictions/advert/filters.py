@@ -8,8 +8,7 @@ from advert.models import Advert
 
 
 class AdvertFilter(filters.FilterSet):
-    status_open=filters.Filter(field_name="status", status__startswith ='OPEN')
-    status_closed = filters.Filter(field_name="status", status__startswith='CLOSED')
+    status = filters.CharFilter()
     created_at=IsoDateTimeFilter()
  #   created_at=filters.DateTimeFilter(field_name="created_at",datetime= timezone.now())
 

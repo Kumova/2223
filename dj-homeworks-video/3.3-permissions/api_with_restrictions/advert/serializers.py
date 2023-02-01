@@ -1,6 +1,9 @@
+from itertools import count
+
 from django.contrib.auth.models import User
 from rest_framework import serializers
 from rest_framework.exceptions import ValidationError
+
 
 from .models import Advert
 
@@ -24,7 +27,7 @@ class AdvertSerializer(serializers.ModelSerializer):
     class Meta:
         model = Advert
         fields = ('id', 'title', 'description', 'creator',
-                  'status', 'created_at', )
+                  'status', 'created_at',)
 
     def create(self, validated_data):
         """Метод для создания"""
@@ -40,7 +43,12 @@ class AdvertSerializer(serializers.ModelSerializer):
 
     def validate(self, data):
         """Метод для валидации. Вызывается при создании и обновлении."""
-        if data not in ['status', 'username']:
-            raise ValidationError('Wrong user')
+
+        data = self.validate['status','title']
+        if data['status'] != 'CLOSED' and len(data) > 10:
+            raise ValidationError('Количество открытых объявлений превышает 10')
 
         return data
+
+#        if data not in ['status', 'username']:
+#           raise ValidationError('Wrong user')
